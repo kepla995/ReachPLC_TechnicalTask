@@ -11,6 +11,4 @@ This repository is my submission to the technical challenge set out.
 
 ## Known Issues
 * Screenshots of Company logos are covered up by Navigation Bar.
-** After some hours researching, this is a common bug using the screenshot command in Cypress.
-
 * Company Details recorded into a .json file still holds a lot of whitespace. 
