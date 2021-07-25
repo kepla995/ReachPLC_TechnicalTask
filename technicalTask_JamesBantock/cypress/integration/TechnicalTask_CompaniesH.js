@@ -12,12 +12,17 @@ Output the internal data structure of the company details as a JSON or XML file.
 
 describe('Technical Task for ReachPLC - H companies', () => {
   //before each test revisit the original url.
-  beforeEach(() => {
-    cy.visit('https://www.medicines.org.uk/emc/browse-companies')
-    //& accept Cookies
-    cy.get('#onetrust-accept-btn-handler').contains('Accept All Cookies').click({force: true})
-    cy.get('.browse').contains('H').click()
-  })
+
+    beforeEach(() => {
+      //Visit target webs
+      cy.visit('https://www.medicines.org.uk/emc/browse-companies')
+
+      //Wait for Cookies pop-up & accept
+      cy.wait(2000)
+      cy.get('#onetrust-accept-btn-handler').contains('Accept All Cookies').click({force: true})
+      cy.get('.browse').contains('H').click()
+    })
+
   it('Business Details for hameln pharma ltd', () => {
 
     //click on 1st Company.
@@ -29,8 +34,12 @@ describe('Technical Task for ReachPLC - H companies', () => {
     .each(function($detail, index, $details){ //Function
       cy.wrap($detail).within(function(){
 
-        //Get screenshot of Company Logo
-        cy.get('.col-md-3').screenshot('hameln pharma ltd')
+        //Change to better viewport size to capture screenshot
+        cy.viewport(250, 768)
+        cy.get('.col-md-3')
+        //Get screenshot of Company Logo & Company details
+        cy.get('.companyLogoWrapper').find('img')
+        .screenshot('hameln pharma ltd')
 
         //get each division from the item with the Class row
         cy.get('.row > div')
@@ -54,8 +63,12 @@ describe('Technical Task for ReachPLC - H companies', () => {
     .each(function($detail, index, $details){ //Function
       cy.wrap($detail).within(function(){
 
-        //Get screenshot of Company Logo
-        cy.get('.col-md-3').screenshot('Holostem Terapie Avanzate s.r.l')
+        //Change to better viewport size to capture screenshot
+        cy.viewport(250, 768)
+        cy.get('.col-md-3')
+        //Get screenshot of Company Logo & Company details
+        cy.get('.companyLogoWrapper').find('img')
+        .screenshot('Holostem Terapie Avanzate s.r.l')
 
         //get each division from the item with the Class row
         cy.get('.row > div')
@@ -79,8 +92,12 @@ describe('Technical Task for ReachPLC - H companies', () => {
       .each(function($detail, index, $details){ //Function
         cy.wrap($detail).within(function(){
 
-          //Get screenshot of Company Logo
-          cy.get('.col-md-3').screenshot('HRA Pharma UK and Ireland Limited')
+          //Change to better viewport size to capture screenshot image and company details
+          cy.viewport(250, 768)
+          cy.get('.col-md-3')
+          //Get screenshot of Company Logo & Company details
+          cy.get('.companyLogoWrapper').find('img')
+          .screenshot('HRA Pharma UK and Ireland Limited')
 
           //get each division from the item with the Class row
           cy.get('.row > div')
@@ -91,6 +108,5 @@ describe('Technical Task for ReachPLC - H companies', () => {
 
         })
       })
-
+    })
   })
-})

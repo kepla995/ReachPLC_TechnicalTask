@@ -12,16 +12,17 @@ Output the internal data structure of the company details as a JSON or XML file.
 
 describe('Technical Task for ReachPLC - A companies', () => {
   //before each test revisit the original url.
-  beforeEach(() => {
-    cy.visit('https://www.medicines.org.uk/emc/browse-companies')
 
-    //& accept Cookies
-    cy.get('#onetrust-accept-btn-handler').contains('Accept All Cookies').click({force: true})
+    beforeEach(() => {
+      //Visit target webs
+      cy.visit('https://www.medicines.org.uk/emc/browse-companies')
 
-    //ensure right is currently loaded
-    cy.get('.browse').contains('A').click()
+      //Wait for Cookies pop-up & accept
+      cy.wait(2000)
+      cy.get('#onetrust-accept-btn-handler').contains('Accept All Cookies').click({force: true})
+      cy.get('.browse').contains('A').click()
+    })
 
-  })
   it('Business Details for A. Menarini Farmaceutica Internazionale SRL', () => {
 
     //click on 1st Company for A.
@@ -33,8 +34,12 @@ describe('Technical Task for ReachPLC - A companies', () => {
     .each(function($detail, index, $details){ //Function
       cy.wrap($detail).within(function(){
 
-        //Get screenshot of Company Logo
-        cy.get('.col-md-3').screenshot('A. Menarini Farmaceutica Internazionale SRL')
+        //Change to better viewport size to capture screenshot
+        cy.viewport(250, 768)
+        cy.get('.col-md-3')
+        //Get screenshot of Company Logo & Company details
+        cy.get('.companyLogoWrapper').find('img')
+        .screenshot('A. Menarini Farmaceutica Internazionale SRL')
 
         //get each division from the item with the Class row
         cy.get('.row > div')
@@ -58,8 +63,12 @@ describe('Technical Task for ReachPLC - A companies', () => {
     .each(function($detail, index, $details){ //Function
       cy.wrap($detail).within(function(){
 
-        //Get screenshot of Company Logo
-        cy.get('.col-md-3').screenshot('Accord Healthcare Limited')
+        //Change to better viewport size to capture screenshot
+        cy.viewport(250, 768)
+        cy.get('.col-md-3')
+        //Get screenshot of Company Logo & Company details
+        cy.get('.companyLogoWrapper').find('img')
+        .screenshot('Accord Healthcare Limited')
 
         //get each division from the item with the Class row
         cy.get('.row > div')
@@ -83,8 +92,12 @@ describe('Technical Task for ReachPLC - A companies', () => {
       .each(function($detail, index, $details){ //Function
         cy.wrap($detail).within(function(){
 
-          //Get screenshot of Company Logo
-          cy.get('.col-md-3').screenshot('Aurobindo Pharma - Milpharm Ltd.')
+          //Change to better viewport size to capture screenshot
+          cy.viewport(250, 768)
+          cy.get('.col-md-3')
+          //Get screenshot of Company Logo & Company details
+          cy.get('.companyLogoWrapper').find('img')
+          .screenshot('Aurobindo Pharma - Milpharm Ltd.')
 
           //get each division from the item with the Class row
           cy.get('.row > div')
@@ -95,6 +108,5 @@ describe('Technical Task for ReachPLC - A companies', () => {
 
         })
       })
-
-  })
+    })
 })

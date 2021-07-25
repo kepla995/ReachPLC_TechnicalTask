@@ -12,12 +12,17 @@ Output the internal data structure of the company details as a JSON or XML file.
 
 describe('Technical Task for ReachPLC - S companies', () => {
   //before each test revisit the original url.
-  beforeEach(() => {
-    cy.visit('https://www.medicines.org.uk/emc/browse-companies')
-    //& accept Cookies
-    cy.get('#onetrust-accept-btn-handler').contains('Accept All Cookies').click({force: true})
-    cy.get('.browse').contains('S').click()
-  })
+
+    beforeEach(() => {
+      //Visit target webs
+      cy.visit('https://www.medicines.org.uk/emc/browse-companies')
+
+      //Wait for Cookies pop-up & accept
+      cy.wait(2000)
+      cy.get('#onetrust-accept-btn-handler').contains('Accept All Cookies').click({force: true})
+      cy.get('.browse').contains('S').click()
+    })
+
   it('Business Details for Sandoz Limited', () => {
 
     //click on 1st Company.
@@ -29,8 +34,12 @@ describe('Technical Task for ReachPLC - S companies', () => {
     .each(function($detail, index, $details){ //Function
       cy.wrap($detail).within(function(){
 
-        //Get screenshot of Company Logo
-        cy.get('.col-md-3').screenshot('Sandoz Limited')
+        //Change to better viewport size to capture screenshot
+        cy.viewport(250, 768)
+        cy.get('.col-md-3')
+        //Get screenshot of Company Logo & Company details
+        cy.get('.companyLogoWrapper').find('img')
+        .screenshot('Sandoz Limited')
 
         //get each division from the item with the Class row
         cy.get('.row > div')
@@ -54,8 +63,12 @@ describe('Technical Task for ReachPLC - S companies', () => {
     .each(function($detail, index, $details){ //Function
       cy.wrap($detail).within(function(){
 
-        //Get screenshot of Company Logo
-        cy.get('.col-md-3').screenshot('Sanofi Genzyme')
+        //Change to better viewport size to capture screenshot
+        cy.viewport(250, 768)
+        cy.get('.col-md-3')
+        //Get screenshot of Company Logo & Company details
+        cy.get('.companyLogoWrapper').find('img')
+        .screenshot('Sanofi Genzyme')
 
         //get each division from the item with the Class row
         cy.get('.row > div')
@@ -79,8 +92,12 @@ describe('Technical Task for ReachPLC - S companies', () => {
       .each(function($detail, index, $details){ //Function
         cy.wrap($detail).within(function(){
 
-          //Get screenshot of Company Logo
-          cy.get('.col-md-3').screenshot('Syner-Medica Ltd')
+          //Change to better viewport size to capture screenshot
+          cy.viewport(250, 768)
+          cy.get('.col-md-3')
+          //Get screenshot of Company Logo & Company details
+          cy.get('.companyLogoWrapper').find('img')
+          .screenshot('Syner-Medica Ltd')
 
           //get each division from the item with the Class row
           cy.get('.row > div')
@@ -91,6 +108,5 @@ describe('Technical Task for ReachPLC - S companies', () => {
 
         })
       })
-
+    })
   })
-})

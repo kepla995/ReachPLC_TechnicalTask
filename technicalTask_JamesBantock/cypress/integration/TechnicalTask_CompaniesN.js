@@ -12,12 +12,17 @@ Output the internal data structure of the company details as a JSON or XML file.
 
 describe('Technical Task for ReachPLC - N companies', () => {
   //before each test revisit the original url.
-  beforeEach(() => {
-    cy.visit('https://www.medicines.org.uk/emc/browse-companies')
-    //& accept Cookies
-    cy.get('#onetrust-accept-btn-handler').contains('Accept All Cookies').click({force: true})
-    cy.get('.browse').contains('N').click()
-  })
+
+    beforeEach(() => {
+      //Visit target webs
+      cy.visit('https://www.medicines.org.uk/emc/browse-companies')
+
+      //Wait for Cookies pop-up & accept
+      cy.wait(2000)
+      cy.get('#onetrust-accept-btn-handler').contains('Accept All Cookies').click({force: true})
+      cy.get('.browse').contains('N').click()
+    })
+
   it('Business Details for Napp Pharmaceuticals Limited', () => {
 
     //click on 1st Company.
@@ -29,8 +34,12 @@ describe('Technical Task for ReachPLC - N companies', () => {
     .each(function($detail, index, $details){ //Function
       cy.wrap($detail).within(function(){
 
-        //Get screenshot of Company Logo
-        cy.get('.col-md-3').screenshot('Napp Pharmaceuticals Limited')
+        //Change to better viewport size to capture screenshot
+        cy.viewport(250, 768)
+        cy.get('.col-md-3')
+        //Get screenshot of Company Logo & Company details
+        cy.get('.companyLogoWrapper').find('img')
+        .screenshot('Napp Pharmaceuticals Limited')
 
         //get each division from the item with the Class row
         cy.get('.row > div')
@@ -54,8 +63,12 @@ describe('Technical Task for ReachPLC - N companies', () => {
     .each(function($detail, index, $details){ //Function
       cy.wrap($detail).within(function(){
 
-        //Get screenshot of Company Logo
-        cy.get('.col-md-3').screenshot('Neon Healthcare Ltd')
+        //Change to better viewport size to capture screenshot
+        cy.viewport(250, 768)
+        cy.get('.col-md-3')
+        //Get screenshot of Company Logo & Company details
+        cy.get('.companyLogoWrapper').find('img')
+        .screenshot('Neon Healthcare Ltd')
 
         //get each division from the item with the Class row
         cy.get('.row > div')
@@ -79,8 +92,12 @@ describe('Technical Task for ReachPLC - N companies', () => {
       .each(function($detail, index, $details){ //Function
         cy.wrap($detail).within(function(){
 
-          //Get screenshot of Company Logo
-          cy.get('.col-md-3').screenshot('Novo Nordisk Limited')
+          //Change to better viewport size to capture screenshot
+          cy.viewport(250, 768)
+          cy.get('.col-md-3')
+          //Get screenshot of Company Logo & Company details
+          cy.get('.companyLogoWrapper').find('img')
+          .screenshot('Novo Nordisk Limited')
 
           //get each division from the item with the Class row
           cy.get('.row > div')
@@ -91,6 +108,5 @@ describe('Technical Task for ReachPLC - N companies', () => {
 
         })
       })
-
+    })
   })
-})

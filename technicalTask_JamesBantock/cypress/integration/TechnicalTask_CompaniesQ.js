@@ -12,12 +12,17 @@ Output the internal data structure of the company details as a JSON or XML file.
 
 describe('Technical Task for ReachPLC - Q company', () => {
   //before each test revisit the original url.
-  beforeEach(() => {
-    cy.visit('https://www.medicines.org.uk/emc/browse-companies')
-    //& accept Cookies
-    cy.get('#onetrust-accept-btn-handler').contains('Accept All Cookies').click({force: true})
-    cy.get('.browse').contains('Q').click()
-  })
+
+    beforeEach(() => {
+      //Visit target webs
+      cy.visit('https://www.medicines.org.uk/emc/browse-companies')
+
+      //Wait for Cookies pop-up & accept
+      cy.wait(2000)
+      cy.get('#onetrust-accept-btn-handler').contains('Accept All Cookies').click({force: true})
+      cy.get('.browse').contains('Q').click()
+    })
+
   it('Business Details for Qdem Pharmaceuticals Limited', () => {
 
     //click on 1st Company.
@@ -29,8 +34,12 @@ describe('Technical Task for ReachPLC - Q company', () => {
     .each(function($detail, index, $details){ //Function
       cy.wrap($detail).within(function(){
 
-        //Get screenshot of Company Logo
-        cy.get('.col-md-3').screenshot('Qdem Pharmaceuticals Limited')
+        //Change to better viewport size to capture screenshot
+        cy.viewport(250, 768)
+        cy.get('.col-md-3')
+        //Get screenshot of Company Logo & Company details
+        cy.get('.companyLogoWrapper').find('img')
+        .screenshot('Qdem Pharmaceuticals Limited')
 
         //get each division from the item with the Class row
         cy.get('.row > div')
