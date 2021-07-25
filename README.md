@@ -10,5 +10,5 @@ This repository is my submission to the technical challenge set out.
 6. Now all 24 scripts should start running.
 
 ## Known Issues
-*Screenshots of Company logos are covered up by Navigation Bar.
-*Company Details recorded into a .json file still holds a lot of whitespace. 
+* Screenshots of Company logos are covered up by Navigation Bar.
+* Company Details recorded into a .json file still holds a lot of whitespace. 
